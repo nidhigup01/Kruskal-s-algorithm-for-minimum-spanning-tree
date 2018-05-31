@@ -44,16 +44,18 @@ class Graph:
  
     # A utility function to find set of an element i
     # (uses path compression technique)
-    def find(self, parent, i):
-        if parent[i] != i:
-            parent[i] = self.find(parent, parent[i])
-        return parent[i]
+    def find(self, parent, vertex):
+        if parent[vertex] != vertex:
+            parent[vertex] = self.find(parent, parent[vertex])
+        return parent[vertex]
  
     # A function that does union of two sets of x and y
     # (uses union by rank)
     def union(self, parent, rank, x, y):
         xroot = self.find(parent, x)
+        print ('xroot', xroot)
         yroot = self.find(parent, y)
+        print ('yroot', yroot)
  
         # Attach smaller rank tree under root of 
         # high rank tree (Union by Rank)
@@ -67,6 +69,10 @@ class Graph:
         else :
             parent[yroot] = xroot
             rank[xroot] += 1
+            print('parent[yroot]', parent[yroot])
+            print('rank[xroot]', rank[xroot])
+            
+        
  
     # The main function to construct MST using Kruskal's 
         # algorithm
@@ -85,7 +91,7 @@ class Graph:
         graph_ =  sorted(graph_,key=lambda item: item[2])
         print ('sorted graph in the increasing order of weight', graph_)
  
-        parent = [] ; rank = []
+        parent = {} ; rank = {}
         
         vertices = self.vertices()
         print ('vertices', vertices)
@@ -93,9 +99,10 @@ class Graph:
         print('V', V)
  
         # Create V subsets with single elements
-        for node in range(V):
-            parent.append(node)
-            rank.append(0)
+        for vertex in vertices:
+            parent[vertex] = vertex
+            rank[vertex] = vertex
+        print ('parent', parent)
      
         # Number of edges to be taken is equal to V-1
         while e < V -1 :
@@ -105,7 +112,11 @@ class Graph:
             u,v,w =  graph_[i]
             i = i + 1
             x = self.find(parent, u)
+            print ('parent_x', x)
+            print('node u', u)
             y = self.find(parent ,v)
+            print ('parent_y', y)
+            print('node v', v)
  
             # If including this edge does't cause cycle, 
                         # include it in result and increment the index
@@ -124,11 +135,14 @@ class Graph:
         print ("Following are the edges in the constructed MST")
         for u,v,weight  in result:
             #print str(u) + " -- " + str(v) + " == " + str(weight)
-            print ("%d -- %d == %d" % (u,v,weight))
+            print ("%s -- %s == %d" % (u,v,weight))
  
 # Driver code
 g = Graph({0: {1: 10, 2: 6, 3: 5}, 1: {3: 15}, 2: {3: 4}})
 g.KruskalMST()
+
+m = Graph({'A': {'B': 10, 'C': 6, 'D': 5}, 'B': {'D': 15}, 'C': {'D': 4}})
+m.KruskalMST()
 
  
 
