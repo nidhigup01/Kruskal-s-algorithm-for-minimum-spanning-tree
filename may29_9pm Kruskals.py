@@ -2,30 +2,8 @@
 """
 Created on Tue May 29 20:43:27 2018
 
-@author: nidhi
-"""
+
 #Learned from GeeksforGeeks
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 27 17:15:29 2018
-
-@author: nidhi
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Tue May 29 20:43:27 2018
-
-@author: nidhi
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 27 17:15:29 2018
-
-@author: nidhi
-"""
-
 # Python program for Kruskal's algorithm to find
 # Minimum Spanning Tree of a given connected, 
 # undirected and weighted graph
