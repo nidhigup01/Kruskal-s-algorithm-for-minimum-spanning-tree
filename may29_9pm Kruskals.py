@@ -4,6 +4,20 @@ Created on Tue May 29 20:43:27 2018
 
 @author: nidhi
 """
+#Learned from GeeksforGeeks
+# -*- coding: utf-8 -*-
+"""
+Created on Sun May 27 17:15:29 2018
+
+@author: nidhi
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Tue May 29 20:43:27 2018
+
+@author: nidhi
+"""
 
 # -*- coding: utf-8 -*-
 """
@@ -25,35 +39,27 @@ class Graph:
         self.graph_dic = graph_dic # default dictionary to store graph
         
     def vertices (self):
-        vertices = list(self.graph_dic.keys())  
+        vertices = []
+        for u in self.graph_dic:
+            if u not in vertices:
+                vertices.append(u)
+            for v in self.graph_dic[u]:
+                if v not in vertices:
+                    vertices.append(v)
+        print ('vertices_', vertices)
           # gives number of vertices 
         return vertices   
                
-    # function to create list of nodes and weights(graph)
-    def remove_duplicates(self, list):
-        x = []
-        for item in list:
-            if item not in x:
-                x.append(item)
-        return x
+   
     def generate_edges_weight_list(self):
         graph = []
         for u in self.graph_dic:
-            #print('self.graph_dic', self.graph_dic)
-            #print('u', u)
             for v in self.graph_dic[u]:
-                #print('self.graph_dic[u]', self.graph_dic[u])
-                #print('v', v)
                 for t in range(self.graph_dic[u][v]):
-                    #print('self.graph_dic[u][v]', self.graph_dic[u][v])
-                    #print('t', t)
                     w = self.graph_dic[u][v]
-                    #print('w', w)
                     edge_weight = [u,v,w]
-                    #print ('edge_weight', edge_weight)
-                    graph.append(edge_weight)
-        #print('graph', graph)
-        graph = self.remove_duplicates(graph)
+                    if [u, v, w ] not in graph:
+                        graph.append(edge_weight)
         print ('graph_', graph)
                     
         return graph    
@@ -61,9 +67,9 @@ class Graph:
     # A utility function to find set of an element i
     # (uses path compression technique)
     def find(self, parent, i):
-        if parent[i] == i:
-            return i
-        return self.find(parent, parent[i])
+        if parent[i] != i:
+            parent[i] = self.find(parent, parent[i])
+        return parent[i]
  
     # A function that does union of two sets of x and y
     # (uses union by rank)
@@ -95,8 +101,7 @@ class Graph:
  
             # Step 1:  Sort all the edges in non-decreasing 
                 # order of their
-                # weight.  If we are not allowed to change the 
-                # given graph, we can create a copy of graph
+                # weight. 
         
         graph_ = self.generate_edges_weight_list()
         graph_ =  sorted(graph_,key=lambda item: item[2])
@@ -149,4 +154,4 @@ g.KruskalMST()
 
  
 
-#This code is contributed by Neelam Yadav
+#This code is made by help from GeeksforGeeks code by Neelam Yadav
